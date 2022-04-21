@@ -61,12 +61,30 @@
             margin: auto;
 
         }
-
+        .rate {
+            color: green;
+        }
     </style>
     <script>
-            function order(){
+            $(document).ready(function() {
+               get_rate();
+            });
+            function get_rate(){
+                $.ajax({
+                    type: "get",
+                    url: "https://api.manana.kr/exchange/rate.json",
+                    date: {},
+                    success: function (response) {
+                        let now_rate = response[1]['rate'];
+                        $('#now-rate').text(now_rate);
+                    }
+                 })
+            }
+
+            function order()    {
                 alert('주문이 완료되었습니다');
             }
+
     </script>
 </head>
 
@@ -77,6 +95,7 @@
         <div class="text">
             <h1>포르쉐 타이칸</h1>
             <p class="price"> 초특가 가격: 300,000$</p>
+            <p class="rate">달러/원 환율: <span id="now-rate">1130.5</span></p>
             <p>생산년도 : 2021년식<p>
             <p>주행거리 : 20,000km</p>
             <p>사고유무 : 무사고</p>
